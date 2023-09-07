@@ -12,6 +12,8 @@ import { useParams, useRouter } from "next/navigation"
 
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { Textarea } from "@/components/ui/textarea"
+
 import {
   Form,
   FormControl,
@@ -36,7 +38,8 @@ const formSchema = z.object({
   colorId: z.string().min(1),
   sizeId: z.string().min(1),
   isFeatured: z.boolean().default(false).optional(),
-  isArchived: z.boolean().default(false).optional()
+  isArchived: z.boolean().default(false).optional(),
+  description: z.string().min(20),
 });
 
 type ProductFormValues = z.infer<typeof formSchema>
@@ -79,6 +82,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
     sizeId: '',
     isFeatured: false,
     isArchived: false,
+    description: '',
   }
 
   const form = useForm<ProductFormValues>({
@@ -279,6 +283,19 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             />
             <FormField
               control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <Textarea disabled={loading} placeholder="Product description" {...field}/>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
               name="isArchived"
               render={({ field }) => (
                 <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
@@ -300,6 +317,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                 </FormItem>
               )}
             />
+            
           </div>
           <Button disabled={loading} className="ml-auto" type="submit">
             {action}
