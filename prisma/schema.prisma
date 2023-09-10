@@ -91,7 +91,7 @@ model Product{
   size Size @relation(fields: [sizeId], references: [id])
   colorId String
   color Color @relation(fields: [colorId], references: [id])
-  description String
+  description String @db.VarChar(300)
   images Image[] 
   orderItems OrderItem[]
   createdAt DateTime @default(now())

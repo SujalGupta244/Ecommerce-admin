@@ -44,7 +44,7 @@ export async function PATCH( req: Request, {params} : {params: {storeId: string 
 
         const body = await req.json()
 
-        const {name, price, categoryId, colorId, sizeId, images, isFeatured, isArchived} = body
+        const {name, price, categoryId, colorId, sizeId, images, isFeatured, isArchived, description} = body
 
         if(!userId){
             return new NextResponse("Unauthorized", {status: 401})
@@ -71,6 +71,10 @@ export async function PATCH( req: Request, {params} : {params: {storeId: string 
 
         if(!colorId){
             return new NextResponse("ColorId is required",{status: 400})
+        }
+
+        if(!description){
+            return new NextResponse("Description is required",{status: 400})
         }
 
         if(!params.productId){
@@ -103,7 +107,8 @@ export async function PATCH( req: Request, {params} : {params: {storeId: string 
                 sizeId,
                 images: {
                     deleteMany : {}
-                }
+                },
+                description,
             }
         })
 
