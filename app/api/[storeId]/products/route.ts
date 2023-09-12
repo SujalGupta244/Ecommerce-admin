@@ -108,7 +108,7 @@ export async function GET(req: Request,{params}:{params: {storeId: string}}){
                 colorId,
                 sizeId,
                 isFeatured: isFeatured ? true : undefined,
-                isArchived : false
+                isArchived : false,
             },
             include: {
                 images: true,

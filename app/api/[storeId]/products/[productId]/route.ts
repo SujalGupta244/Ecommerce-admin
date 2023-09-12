@@ -26,7 +26,7 @@ export async function GET( req: Request, {params} : {params: {productId: string}
             }
             
         })
-        
+
 
         return NextResponse.json(product)
 
